@@ -33,6 +33,7 @@ env:
   - MAKE_TARGET=test.edx_east_roles
 
 script:
+  - env
   - docker --version
   - make --version
   - travis_wait 40 make --keep-going $MAKE_TARGET SHARD=$SHARD SHARDS=$SHARDS
