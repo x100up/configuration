@@ -2,12 +2,11 @@
   hosts: all
   sudo: True
   gather_facts: True
+  vars:
+    nginx_default_sites:
+      - harstorage
   roles:
     - aws
     - mongo
-    - role: nginx
-      nginx_sites:
-        - harstorage
-      nginx_default_sites:
-        - harstorage
+    - nginx
     - harstorage
