@@ -5,4 +5,9 @@
   roles:
     - aws
     - mongo
+    - role: nginx
+      nginx_sites:
+        - harstorage
+      nginx_default_sites:
+        - harstorage
     - harstorage

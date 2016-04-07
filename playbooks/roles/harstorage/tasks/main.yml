@@ -135,3 +135,27 @@
 - name: update supervisor configuration
   shell: "{{ supervisor_ctl }} -c {{ supervisor_cfg }} update"
   when: not disable_edx_services
+
+- name: Copying nginx configs for harstorage
+  template:
+    src: "edx/app/nginx/sites-available/harstorage.j2"
+    dest: "{{ nginx_sites_available_dir }}/harstorage"
+    owner: root
+    group: "{{ common_web_user }}"
+    mode: 0640
+  notify: reload nginx
+  tags:
+    - install
+    - install:vhosts
+
+- name: Creating nginx config links for discovery
+  file:
+    src: "{{ nginx_sites_available_dir }}/harstorage"
+    dest: "{{ nginx_sites_enabled_dir }}/harstorage"
+    state: link
+    owner: root
+    group: root
+  notify: reload nginx
+  tags:
+    - install
+    - install:vhosts
