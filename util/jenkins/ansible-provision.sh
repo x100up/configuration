@@ -230,6 +230,12 @@ EOF_AUTH
 
 fi
 
+if [[ -n $nginx_users ]]; then
+   cat << EOF_AUTH >> $extra_vars_file
+NGINX_USERS: $nginx_users
+EOF_AUTH
+fi
+
 if [[ $enable_client_profiling == "true" ]]; then
     cat << EOF_PROFILING >> $extra_vars_file
 EDXAPP_SESSION_SAVE_EVERY_REQUEST: True
@@ -268,8 +274,6 @@ SANDBOX_USERNAME: $github_username
 EDXAPP_ECOMMERCE_PUBLIC_URL_ROOT: "https://ecommerce-${deploy_host}"
 EDXAPP_ECOMMERCE_API_URL: "https://ecommerce-${deploy_host}/api/v2"
 
-NGINXUSERS: $nginx_users
-
 ECOMMERCE_ECOMMERCE_URL_ROOT: "https://ecommerce-${deploy_host}"
 ECOMMERCE_LMS_URL_ROOT: "https://${deploy_host}"
 ECOMMERCE_SOCIAL_AUTH_REDIRECT_IS_HTTPS: true
@@ -277,6 +281,8 @@ ECOMMERCE_SOCIAL_AUTH_REDIRECT_IS_HTTPS: true
 PROGRAMS_LMS_URL_ROOT: "https://${deploy_host}"
 PROGRAMS_URL_ROOT: "https://programs-${deploy_host}"
 PROGRAMS_SOCIAL_AUTH_REDIRECT_IS_HTTPS: true
+PROGRAMS_CORS_ORIGIN_WHITELIST:
+  - studio-${deploy_host}
 
 CREDENTIALS_LMS_URL_ROOT: "https://${deploy_host}"
 CREDENTIALS_DOMAIN: "credentials-${deploy_host}"

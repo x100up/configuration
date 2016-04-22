@@ -11,7 +11,7 @@ NGINX_EDXAPP_EXTRA_CONFIGS: []
 NGINX_EDXAPP_CUSTOM_REDIRECTS: {}
 
 # Override these vars for adding user to nginx.htpasswd
-NGINXUSERS:
+NGINX_USERS:
   - name: "{{ COMMON_HTPASSWD_USER }}"
     password: "{{ COMMON_HTPASSWD_PASS }}"
     state: present
@@ -127,3 +127,4 @@ nginx_cfg:
 
 NGINX_ROBOT_RULES: [ ]
 NGINX_EDXAPP_EMBARGO_CIDRS: []
+NGINX_P3P_MESSAGE: 'CP="Open edX does not have a P3P policy."'
